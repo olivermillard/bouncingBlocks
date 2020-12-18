@@ -61,10 +61,11 @@ function createBlock() {
   var blockContainer = document.getElementById("blockContainer");
   var block = document.createElement("div");
   block.className = "block";
+  // eslint-disable-next-line no-undef
   anime({
     targets: block,
     width: ["0px", "30px"],
-    duration: 1000,
+    duration: 10,
     complete: createBlock,
   });
   blockContainer.appendChild(block);
