@@ -46,25 +46,20 @@ function setup() {
   for (var i = 0; i < 10; i++) {
     var newBlock = document.createElement("div");
     newBlock.className = "block";
-    var blockID = "c" + i;
+    var blockID = "b" + i;
     newBlock.setAttribute("id", blockID);
-    // newBlock.style.backgroundColor = colors[getRandomInt(colors.length)];
-    // newBlock.style.border = "5px solid " + colors[getRandomInt(colors.length)];
+    newBlock.style.border = "2px solid white";
 
     blockContainer.appendChild(newBlock);
+    const animation = anime({
+      targets: document.getElementById("b" + i),
+      translateX: 250,
+      duration: 2000,
+      direction: "alternate",
+      loop: true,
+    });
+    animation.play();
   }
   blockContainer.style.border = "5px solid white";
   mainContainer.appendChild(blockContainer);
 }
-
-var block1 = document.getElementById("block1");
-
-const animation = anime({
-  targets: block1,
-  translateX: 250,
-  duration: 2000,
-  direction: "alternate",
-  loop: true,
-});
-
-animation.play();
