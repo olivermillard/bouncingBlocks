@@ -17,9 +17,13 @@ body {
   justify-content: center;
 }
 
+#blockContainer {
+  display: flex;
+}
+
 .block {
   width: 30px;
   height: 30px;
   background-color: black;
-  display: flex;
+  border: 1px solid white;
 }

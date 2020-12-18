@@ -43,23 +43,29 @@ function setup() {
   // numBlocksCol = containerHeight / 50;
   // numBlocks = numBlocksRow * numBlocksCol;
 
-  for (var i = 0; i < 10; i++) {
-    var newBlock = document.createElement("div");
-    newBlock.className = "block";
-    var blockID = "b" + i;
-    newBlock.setAttribute("id", blockID);
-    newBlock.style.border = "2px solid white";
+  // for (var i = 0; i < 10; i++) {
+  //   var newBlock = document.createElement("div");
+  //   newBlock.className = "block";
+  //   var blockID = "b" + i;
+  //   newBlock.setAttribute("id", blockID);
+  //   newBlock.style.border = "2px solid white";
 
-    blockContainer.appendChild(newBlock);
-    const animation = anime({
-      targets: document.getElementById("b" + i),
-      translateX: 250,
-      duration: 2000,
-      direction: "alternate",
-      loop: true,
-    });
-    animation.play();
-  }
+  //   blockContainer.appendChild(newBlock);
+  // }
   blockContainer.style.border = "5px solid white";
   mainContainer.appendChild(blockContainer);
+  createBlock();
+}
+
+function createBlock() {
+  var blockContainer = document.getElementById("blockContainer");
+  var block = document.createElement("div");
+  block.className = "block";
+  anime({
+    targets: block,
+    width: ["0px", "30px"],
+    duration: 1000,
+    complete: createBlock,
+  });
+  blockContainer.appendChild(block);
 }
