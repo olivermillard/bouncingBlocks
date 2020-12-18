@@ -36,26 +36,18 @@ function setup() {
   if (prevcubeContainer) {
     mainContainer.removeChild(prevcubeContainer);
   }
-  numCubesRow = containerWidth / 50;
-  numCubesCol = containerHeight / 50;
-  numCubes = numCubesRow * numCubesCol;
+  // numCubesRow = containerWidth / 50;
+  // numCubesCol = containerHeight / 50;
+  // numCubes = numCubesRow * numCubesCol;
 
-  for (var i = 0; i < numCubes; i++) {
+  for (var i = 0; i < 10; i++) {
     var newCube = document.createElement("div");
     newCube.className = "cube";
     var cubeID = "c" + i;
     newCube.setAttribute("id", cubeID);
     newCube.style.backgroundColor = colors[getRandomInt(colors.length)];
     newCube.style.border = "5px solid " + colors[getRandomInt(colors.length)];
-    var content = document.createElement("div");
-    content.setAttribute("id", "i" + i);
-    content.style.backgroundColor = colors[getRandomInt(colors.length)];
-    content.style.border = "5px solid " + colors[getRandomInt(colors.length)];
-    if (getRandomInt(2) == 0) {
-      content.className = "circle";
-    } else {
-      content.className = "square";
-    }
+
     newCube.appendChild(content);
     cubeContainer.appendChild(newCube);
   }

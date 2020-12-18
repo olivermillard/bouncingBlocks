@@ -18,5 +18,8 @@
   "homepage": "https://github.com/olivermillard/bouncingBlocks#readme",
   "dependencies": {
     "animejs": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.16.0"
   }
 }
