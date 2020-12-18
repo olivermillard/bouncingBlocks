@@ -19,47 +19,48 @@ function getHeight() {
     document.documentElement.clientHeight
   );
 }
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 
 function setup() {
   var pageWidth = getWidth();
   var pageHeight = getHeight();
 
-  var cubeContainer = document.createElement("div");
-  cubeContainer.setAttribute("id", "cubeContainer");
+  var blockContainer = document.createElement("div");
+  blockContainer.setAttribute("id", "blockContainer");
 
   var containerWidth = pageWidth - (pageWidth % 50) - 50;
-  cubeContainer.style.width = containerWidth + "px";
+  blockContainer.style.width = containerWidth + "px";
   var containerHeight = pageHeight - (pageHeight % 50) - 100;
-  cubeContainer.style.height = containerHeight + "px";
+  blockContainer.style.height = containerHeight + "px";
 
-  var prevcubeContainer = document.getElementById("cubeContainer");
-  if (prevcubeContainer) {
-    mainContainer.removeChild(prevcubeContainer);
+  var prevblockContainer = document.getElementById("blockContainer");
+  if (prevblockContainer) {
+    mainContainer.removeChild(prevblockContainer);
   }
-  // numCubesRow = containerWidth / 50;
-  // numCubesCol = containerHeight / 50;
-  // numCubes = numCubesRow * numCubesCol;
+  // numBlocksRow = containerWidth / 50;
+  // numBlocksCol = containerHeight / 50;
+  // numBlocks = numBlocksRow * numBlocksCol;
 
   for (var i = 0; i < 10; i++) {
-    var newCube = document.createElement("div");
-    newCube.className = "cube";
-    var cubeID = "c" + i;
-    newCube.setAttribute("id", cubeID);
-    newCube.style.backgroundColor = colors[getRandomInt(colors.length)];
-    newCube.style.border = "5px solid " + colors[getRandomInt(colors.length)];
+    var newBlock = document.createElement("div");
+    newBlock.className = "block";
+    var blockID = "c" + i;
+    newBlock.setAttribute("id", blockID);
+    // newBlock.style.backgroundColor = colors[getRandomInt(colors.length)];
+    // newBlock.style.border = "5px solid " + colors[getRandomInt(colors.length)];
 
-    newCube.appendChild(content);
-    cubeContainer.appendChild(newCube);
+    blockContainer.appendChild(newBlock);
   }
-  cubeContainer.style.border = "5px solid white";
-  mainContainer.appendChild(cubeContainer);
-  setAnimations();
+  blockContainer.style.border = "5px solid white";
+  mainContainer.appendChild(blockContainer);
 }
 
-var cube1 = document.getElementById("cube1");
+var block1 = document.getElementById("block1");
 
 const animation = anime({
-  targets: cube1,
+  targets: block1,
   translateX: 250,
   duration: 2000,
   direction: "alternate",
