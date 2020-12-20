@@ -18,17 +18,17 @@ body {
 }
 
 #blockContainer {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: start;
-  align-content: center; */
+  align-content: center;
 }
 
 .block {
-  width: 30px;
-  height: 30px;
   background-color: black;
-  border: 1px solid white;
-  position: relative;
+}
+
+.animatedBlock {
+  border-right: 1px solid green;
 }
