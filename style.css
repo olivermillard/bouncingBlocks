@@ -18,9 +18,11 @@ body {
 }
 
 #blockContainer {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  justify-content: start;
+  align-content: center; */
 }
 
 .block {
@@ -28,5 +30,5 @@ body {
   height: 30px;
   background-color: black;
   border: 1px solid white;
-  overflow: hidden;
+  position: relative;
 }
