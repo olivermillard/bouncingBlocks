@@ -22,62 +22,68 @@ function getHeight() {
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
-
+var blocksIdArray = [];
 var pageWidth = getWidth();
 var pageHeight = getHeight();
-var containerWidth = pageWidth - (pageWidth % 50) - 50;
-var containerHeight = pageHeight - (pageHeight % 50) - 100;
+var containerWidth = pageWidth - (pageWidth % 50);
+var containerHeight = pageHeight - (pageHeight % 50) - 50;
 var numBlocksRow = containerWidth / 50;
 var numBlocksCol = containerHeight / 50;
 var numBlocks = numBlocksRow * numBlocksCol;
+var marginWidth = (pageWidth % 50) + 50;
+var marginHeight = (pageHeight % 50) / 2 + 50;
 
 function setup() {
   var blockContainer = document.createElement("div");
   blockContainer.setAttribute("id", "blockContainer");
-  blockContainer.style.width = containerWidth + "px";
+  blockContainer.style.width = "100%"; //containerWidth + "px";
   blockContainer.style.height = containerHeight + "px";
   var prevBlockContainer = document.getElementById("blockContainer");
   if (prevBlockContainer) {
     mainContainer.removeChild(prevBlockContainer);
   }
 
+  var currRow = 1;
   for (var i = 0; i < numBlocks; i++) {
-    var blockID = "b" + i;
     var newBlock = document.createElement("div");
     newBlock.classList.add("block");
-    newBlock.setAttribute("id", blockID);
     newBlock.style.width = "48px";
     newBlock.style.height = "48px";
-    // newBlock.style.position = "absolute";
-    // newBlock.style.left = i * 31 + "px";
-    // newBlock.style.top = i * 31 + "px";
+    newBlock.style.position = "absolute";
+    var x = (i % numBlocksRow) + 1;
+    var y;
+    if (i % numBlocksRow == numBlocksRow - 1) {
+      y = currRow;
+      newBlock.style.top = currRow * 50 + "px";
+      currRow += 1;
+    } else {
+      newBlock.style.top = currRow * 50 + "px";
+      y = currRow;
+    }
+    var blockID = "b" + x + "-" + y;
+    var xPos = (x - 1) * 50 + numBlocks / marginWidth;
+    newBlock.style.left = xPos + "px";
     newBlock.style.border = "1px solid red";
-
-    animateFunc(this.id);
-    var animeID = "#" + blockID;
-    // eslint-disable-next-line no-undef
-    anime({
-      targets: animeID,
-      rotateY: "360deg",
-      duration: 3000,
-      // eslint-disable-next-line no-undef
-      delay: anime.stagger(100),
-    });
-
+    newBlock.setAttribute("id", blockID);
+    blocksIdArray.push(blockID);
     blockContainer.appendChild(newBlock);
   }
   blockContainer.style.border = "5px solid white";
-
   mainContainer.appendChild(blockContainer);
+  // animateFunc();
 }
-function animateFunc(id) {
-  var blockID = "";
-  // eslint-disable-next-line no-undef
-  anime({
-    targets: blockID,
-    rotateY: "360deg",
-    duration: 3000,
+
+function animateFunc() {
+  for (var i = 0; i < numBlocks; i++) {
+    var animeID = "#" + blocksIdArray[i];
     // eslint-disable-next-line no-undef
-    delay: anime.stagger(100),
-  });
+    anime({
+      targets: animeID,
+      //delay: 1000 + i * 10,
+      translateX: 10,
+      //loop: true,
+      duration: 3000,
+      direction: "alternate",
+    });
+  }
 }

@@ -18,11 +18,8 @@ body {
 }
 
 #blockContainer {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: start;
-  align-content: center;
+  top: 0;
+  left: 0;
 }
 
 .block {
