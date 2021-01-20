@@ -100,11 +100,17 @@ function animate() {
       { translateX: 150, rotate: 180 },
       { translateX: 0, rotate: 360 },
       { rotate: 0 },
+      {
+        rotate: 90,
+        // eslint-disable-next-line no-undef
+        translateX: anime.stagger([-200, 200], { from: "center" }),
+      },
+      { translateX: 0, rotate: -90 },
     ],
     // eslint-disable-next-line no-undef
     delay: anime.stagger(7.5),
     // delay: anime.stagger(30, { from: "center" }),
-    duration: 6000,
+    duration: 8000,
     loop: true,
     direction: "alternate",
   });
