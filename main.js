@@ -19,71 +19,106 @@ function getHeight() {
     document.documentElement.clientHeight
   );
 }
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-var blocksIdArray = [];
-var pageWidth = getWidth();
-var pageHeight = getHeight();
-var containerWidth = pageWidth - (pageWidth % 50);
-var containerHeight = pageHeight - (pageHeight % 50) - 50;
-var numBlocksRow = containerWidth / 50;
-var numBlocksCol = containerHeight / 50;
-var numBlocks = numBlocksRow * numBlocksCol;
-var marginWidth = (pageWidth % 50) + 50;
-var marginHeight = (pageHeight % 50) / 2 + 50;
+var numCol = 4;
+var numPerCol = 10;
+var fullScreen = false;
+mainContainer.onclick = function() {
+  if (fullScreen == false) {
+    mainContainer.requestFullscreen();
+    fullScreen = true;
+    return;
+  }
+  if (fullScreen == true) {
+    document.exitFullscreen();
+    fullScreen = false;
+    return;
+  }
+};
 
 function setup() {
-  var blockContainer = document.createElement("div");
-  blockContainer.setAttribute("id", "blockContainer");
-  blockContainer.style.width = "100%"; //containerWidth + "px";
-  blockContainer.style.height = containerHeight + "px";
-  var prevBlockContainer = document.getElementById("blockContainer");
-  if (prevBlockContainer) {
-    mainContainer.removeChild(prevBlockContainer);
+  var blockContainerV = document.createElement("div");
+  blockContainerV.setAttribute("id", "blockContainerV");
+  var prevBlockContainerV = document.getElementById("blockContainerV");
+  if (prevBlockContainerV) {
+    mainContainer.removeChild(prevBlockContainerV);
+  }
+  mainContainer.appendChild(blockContainerV);
+  var pageWidth = getWidth();
+  var pageHeight = getHeight();
+  var blockWidth = 20;
+  var borderWidth = 1;
+  var numBlocksV = Math.round(pageWidth / (blockWidth + borderWidth * 2) - 1);
+  console.log(pageWidth, blockWidth, numBlocksV);
+
+  var backgroundColor;
+  for (var i = 0; i < numBlocksV; i++) {
+    var newBlockV = document.createElement("div");
+    newBlockV.setAttribute("id", "b" + i);
+    newBlockV.classList.add("block");
+    newBlockV.classList.add("blockV");
+    newBlockV.style.width = blockWidth + "px";
+    newBlockV.style.height = pageHeight + "px";
+    if (i % 2 == 0) {
+      backgroundColor = "red";
+    } else {
+      backgroundColor = "blue";
+    }
+    newBlockV.style.backgroundColor = backgroundColor;
+    blockContainerV.appendChild(newBlockV);
+    if (i == numBlocksV - 1) {
+      animate();
+    }
   }
 
-  var currRow = 1;
-  for (var i = 0; i < numBlocks; i++) {
-    var newBlock = document.createElement("div");
-    newBlock.classList.add("block");
-    newBlock.style.width = "48px";
-    newBlock.style.height = "48px";
-    newBlock.style.position = "absolute";
-    var x = (i % numBlocksRow) + 1;
-    var y;
-    if (i % numBlocksRow == numBlocksRow - 1) {
-      y = currRow;
-      newBlock.style.top = currRow * 50 + "px";
-      currRow += 1;
-    } else {
-      newBlock.style.top = currRow * 50 + "px";
-      y = currRow;
-    }
-    var blockID = "b" + x + "-" + y;
-    var xPos = (x - 1) * 50 + numBlocks / marginWidth;
-    newBlock.style.left = xPos + "px";
-    newBlock.style.border = "1px solid red";
-    newBlock.setAttribute("id", blockID);
-    blocksIdArray.push(blockID);
-    blockContainer.appendChild(newBlock);
-  }
-  blockContainer.style.border = "5px solid white";
-  mainContainer.appendChild(blockContainer);
-  // animateFunc();
+  // for (var n = 0; n < numCol; n++) {
+  //   var newRow = document.createElement("div");
+  //   newRow.setAttribute("id", "r" + n);
+  //   newRow.classList.add("row" + n);
+  //   newRow.classList.add("row");
+  //   for (var i = 0; i < numPerCol; i++) {
+  //     var newBlock = document.createElement("div");
+  //     newBlock.setAttribute("id", "b" + i + "-" + n);
+  //     newBlock.classList.add("block");
+  //     newBlock.classList.add("block" + n);
+  //     newRow.appendChild(newBlock);
+  //   }
+  //   blockContainer.appendChild(newRow);
+  // }
 }
 
-function animateFunc() {
-  for (var i = 0; i < numBlocks; i++) {
-    var animeID = "#" + blocksIdArray[i];
+function animate() {
+  // eslint-disable-next-line no-undef
+  const animationV = anime({
+    targets: ".blockV",
     // eslint-disable-next-line no-undef
-    anime({
-      targets: animeID,
-      //delay: 1000 + i * 10,
-      translateX: 10,
-      //loop: true,
-      duration: 3000,
-      direction: "alternate",
-    });
-  }
+    scale: [
+      { value: 0.5, easing: "easeOutSine", duration: 500 },
+      { value: 0.95, easing: "easeInOutQuad", duration: 1200 },
+    ],
+    keyframes: [
+      { translateX: -150, rotate: 90 },
+      { translateX: 150, rotate: 180 },
+      { translateX: 0, rotate: 360 },
+      { rotate: 0 },
+    ],
+    // eslint-disable-next-line no-undef
+    delay: anime.stagger(7.5),
+    // delay: anime.stagger(30, { from: "center" }),
+    duration: 6000,
+    loop: true,
+    direction: "alternate",
+  });
+
+  var paused = false;
+  document.addEventListener("keyup", (event) => {
+    if (event.code === "Space") {
+      if (paused == false) {
+        animationV.pause();
+        paused = true;
+      } else {
+        animationV.play();
+        paused = false;
+      }
+    }
+  });
 }

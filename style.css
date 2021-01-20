@@ -15,17 +15,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-#blockContainer {
-  top: 0;
-  left: 0;
-}
-
-.block {
+  flex-direction: row;
   background-color: black;
 }
-
-.animatedBlock {
-  border-right: 1px solid green;
+#blockContainerV {
+  /* background-color: blue; */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.block {
+  display: block;
+  position: absolute;
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 5px;
 }
