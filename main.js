@@ -19,8 +19,7 @@ function getHeight() {
     document.documentElement.clientHeight
   );
 }
-var numCol = 4;
-var numPerCol = 10;
+
 var fullScreen = false;
 mainContainer.onclick = function() {
   if (fullScreen == false) {
@@ -110,7 +109,7 @@ function animate() {
     // eslint-disable-next-line no-undef
     delay: anime.stagger(7.5),
     // delay: anime.stagger(30, { from: "center" }),
-    duration: 8000,
+    duration: 12000,
     loop: true,
     direction: "alternate",
   });
